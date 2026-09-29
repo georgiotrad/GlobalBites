@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>GlobalBites - Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body class="login-body">
+    <div class="login-wrapper">
+        <div class="glow glow-top"></div>
+        <div class="glow glow-bottom"></div>
+
+        <div class="login-card">
+            <div class="login-header">
+                <div class="icon-circle ghost"><span class="material-symbols-outlined">person_add</span></div>
+                <h1>Create Account</h1>
+                <p>Join GlobalBites for premium dining reservations</p>
+            </div>
+
+            <!-- Error/Success Message -->
+            <div id="message" style="display: none; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;"></div>
+
+            <form class="login-form" id="signup-form">
+                <div class="input-group">
+                    <label for="full-name">Full Name</label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-outlined icon">person</span>
+                        <input type="text" id="full-name" name="full_name" placeholder="Enter your full name" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-outlined icon">mail</span>
+                        <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="phone-input-wrapper">
+                        <span class="material-symbols-outlined icon">call</span>
+                        <div class="country-select-container">
+                            <select class="country-select" name="country_code" id="country-code" aria-label="Country code">
+                                <option value="+961">+961</option>
+                                <option value="+1">+1</option>
+                                <option value="+44">+44</option>
+                                <option value="+20">+20</option>
+                                <option value="+33">+33</option>
+                                <option value="+49">+49</option>
+                                <option value="+91">+91</option>
+                                <option value="+966">+966</option>
+                                <option value="+971">+971</option>
+                                <option value="+90">+90</option>
+                            </select>
+                            <span class="material-symbols-outlined select-icon">expand_more</span>
+                        </div>
+                        <div class="divider-line"></div>
+                        <input type="tel" id="phone" name="phone" placeholder="03 123 456" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-outlined icon">lock</span>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required minlength="6">
+                    </div>
+                    <small style="color: var(--text-muted); font-size: 12px; margin-top: 4px; display: block;">Minimum 6 characters</small>
+                </div>
+
+                <button type="submit" class="btn-primary full-width" id="signup-btn">
+                    Sign Up <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>Already have an account? <a href="/login">Log In</a></p>
+            </div>
+        </div>
+
+        <div class="legal-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </div>
+
+    <script>
+        const signupForm = document.getElementById('signup-form');
+        const messageDiv = document.getElementById('message');
+        const signupBtn = document.getElementById('signup-btn');
+
+        function showMessage(message, isError = false) {
+            messageDiv.textContent = message;
+            messageDiv.style.display = 'block';
+            messageDiv.style.backgroundColor = isError ? '#ff4444' : '#4CAF50';
+            messageDiv.style.color = 'white';
+        }
+
+        signupForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            signupBtn.disabled = true;
+            const payload = {
+                full_name: document.getElementById('full-name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                country_code: document.getElementById('country-code').value,
+                password: document.getElementById('password').value,
+            };
+            try {
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Account creation failed.');
+                showMessage('Account created successfully.');
+                setTimeout(() => { window.location.href = '/restaurant-listing'; }, 400);
+            } catch (error) {
+                showMessage(error.message, true);
+            } finally {
+                signupBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

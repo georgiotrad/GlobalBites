@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>GlobalBites - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body class="login-body">
+    <div class="login-wrapper">
+        <div class="glow glow-top"></div>
+        <div class="glow glow-bottom"></div>
+
+        <div class="login-card">
+            <div class="login-header">
+                <div class="icon-circle ghost"><span class="material-symbols-outlined">restaurant_menu</span></div>
+                <h1>Welcome Back</h1>
+                <p>Please enter your details to sign in</p>
+            </div>
+
+            <!-- Error/Success Message -->
+            <div id="message" style="display: none; padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px;"></div>
+
+            <form class="login-form" id="login-form">
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-outlined icon">mail</span>
+                        <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="flex-between">
+                        <label for="password">Password</label>
+                        <a href="#" class="forgot-link">Forgot Password?</a>
+                    </div>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-outlined icon">lock</span>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                        <span class="material-symbols-outlined icon-right" id="toggle-password">visibility_off</span>
+                    </div>
+                </div>
+
+                <div class="remember-group">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember me for 30 days</label>
+                </div>
+
+                <button type="submit" class="btn-primary full-width" id="login-btn">
+                    Log In <span class="material-symbols-outlined">arrow_forward</span>
+                </button>
+            </form>
+
+            <div style="margin-top: 18px; display: grid; gap: 10px;">
+                <button type="button" class="btn-primary full-width" onclick="demoLogin('DINER')">Demo Diner Access</button>
+                <button type="button" class="btn-outline full-width" onclick="demoLogin('STAFF')">Demo Restaurant Staff Access</button>
+                <small style="color: var(--text-muted); line-height: 1.5;">Demo access is intentionally provided for capstone evaluation. Diner and staff permissions are enforced by the backend.</small>
+            </div>
+            <div class="login-footer">
+                <p>Don't have an account? <a href="/signup">Sign up for free</a></p>
+            </div>
+        </div>
+
+        <div class="legal-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('toggle-password');
+        const passwordInput = document.getElementById('password');
+        const loginForm = document.getElementById('login-form');
+        const messageDiv = document.getElementById('message');
+        const loginBtn = document.getElementById('login-btn');
+
+        toggleBtn.addEventListener('click', function () {
+            const isHidden = passwordInput.type === 'password';
+            passwordInput.type = isHidden ? 'text' : 'password';
+            this.textContent = isHidden ? 'visibility' : 'visibility_off';
+        });
+
+        function showMessage(message, isError = false) {
+            messageDiv.textContent = message;
+            messageDiv.style.display = 'block';
+            messageDiv.style.backgroundColor = isError ? '#ff4444' : '#4CAF50';
+            messageDiv.style.color = 'white';
+        }
+
+        async function loginWithPayload(payload) {
+            loginBtn.disabled = true;
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Login failed.');
+                showMessage('Login successful.');
+                const next = new URLSearchParams(window.location.search).get('next');
+                setTimeout(() => { window.location.href = next && next.startsWith('/') ? next : '/'; }, 400);
+            } catch (error) {
+                showMessage(error.message, true);
+            } finally {
+                loginBtn.disabled = false;
+            }
+        }
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            loginWithPayload({
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                remember: document.getElementById('remember').checked,
+            });
+        });
+
+        async function demoLogin(role) {
+            try {
+                const response = await fetch('/api/demo-login', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ role }),
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Demo login failed.');
+                const next = role === 'STAFF' ? '/reservations' : '/restaurant-listing';
+                window.location.href = next;
+            } catch (error) {
+                showMessage(error.message, true);
+            }
+        }
+    </script>
+</body>
+</html>

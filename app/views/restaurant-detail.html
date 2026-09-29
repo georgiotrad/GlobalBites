@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Restaurant Detail — GlobalBites</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-grid">
+            <div class="logo">
+                <span class="material-symbols-outlined logo-icon">restaurant_menu</span>
+                <h2>GlobalBites</h2>
+            </div>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/reservations">Reservations</a>
+                <a href="#" class="region-nav" id="region-toggle">
+                    Region
+                    <span class="material-symbols-outlined expand-icon">expand_more</span>
+                    <div class="dropdown-menu" id="region-dropdown">
+                        <a class="dropdown-item active" href="#">Lebanon</a>
+                        <a class="dropdown-item" href="#">United States</a>
+                        <a class="dropdown-item" href="#">France</a>
+                        <a class="dropdown-item" href="#">United Kingdom</a>
+                    </div>
+                </a>
+            </nav>
+            <div class="nav-actions">
+                <a href="/login" class="login-link">Login</a>
+                <a href="/signup" class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="rd-main">
+        <div class="container">
+
+            <!-- SECTION 1: Restaurant Header -->
+            <div class="rd-header">
+                <h1 class="rd-name" id="rd-name">Swiss Butter</h1>
+                <div class="rd-tags">
+                    <span class="rd-tag">
+                        <span class="material-symbols-outlined rd-star">star</span>
+                        <span id="rd-rating">4.9</span>
+                    </span>
+                    <span class="rd-tag" id="rd-cuisine">Lebanese</span>
+                    <span class="rd-tag" id="rd-price">$$$</span>
+                    <span class="rd-tag">
+                        <span class="material-symbols-outlined">location_on</span>
+                        <span id="rd-location">Gemmayzeh, Beirut</span>
+                    </span>
+                    <span class="rd-tag">
+                        <span class="material-symbols-outlined">schedule</span>
+                        <span id="rd-hours">12:00 PM – 11:30 PM</span>
+                    </span>
+                    <span class="rd-tag">
+                        <span class="material-symbols-outlined">phone</span>
+                        <span id="rd-phone">+961 1 000 001</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- SECTION 2: Image Gallery -->
+            <div class="rd-gallery">
+                <div class="rd-gallery-main">
+                    <img id="rd-main-img" src="/static/img/restaurants/swiss-butter-1.jpg" alt="Restaurant main photo"/>
+                </div>
+                <div class="rd-gallery-thumbs" id="rd-thumbs">
+                    <!-- Thumbnails injected by JS -->
+                </div>
+            </div>
+
+            <!-- SECTION 3: About + Details -->
+            <div class="rd-body">
+                <div class="rd-about">
+                    <h2 class="rd-section-title">About</h2>
+                    <p class="rd-about-text" id="rd-about">
+                        Swiss Butter is Beirut's most celebrated steakhouse, famous for its signature butter-basted cuts and warm, wood-paneled atmosphere. Every dish is crafted with locally sourced produce and prime cuts that keep guests coming back.
+                    </p>
+                </div>
+                <div class="rd-details-card">
+                    <h3 class="rd-details-title">Details</h3>
+                    <div class="rd-details-list">
+                        <div class="rd-detail-item">
+                            <span class="material-symbols-outlined">location_on</span>
+                            <div>
+                                <span class="rd-detail-label">Address</span>
+                                <span class="rd-detail-value" id="rd-address">Gemmayzeh, Beirut</span>
+                            </div>
+                        </div>
+                        <div class="rd-detail-item">
+                            <span class="material-symbols-outlined">schedule</span>
+                            <div>
+                                <span class="rd-detail-label">Hours</span>
+                                <span class="rd-detail-value open-indicator">Open · Closes 11:30 PM</span>
+                            </div>
+                        </div>
+                        <div class="rd-detail-item">
+                            <span class="material-symbols-outlined">phone</span>
+                            <div>
+                                <span class="rd-detail-label">Phone</span>
+                                <span class="rd-detail-value" id="rd-phone-detail">+961 1 000 001</span>
+                            </div>
+                        </div>
+                        <div class="rd-detail-item">
+                            <span class="material-symbols-outlined">payments</span>
+                            <div>
+                                <span class="rd-detail-label">Price Range</span>
+                                <span class="rd-detail-value" id="rd-price-detail">$$$</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: Reserve Banner -->
+            <div class="rd-reserve-banner">
+                <div class="rd-reserve-banner-glow"></div>
+                <div class="rd-reserve-text">
+                    <h2>Ready to Dine?</h2>
+                    <p>Reserve your table in seconds — free cancellation up to 2h before.</p>
+                </div>
+                <a href="/booking-form" class="btn-primary rd-reserve-btn" style="text-decoration:none;">
+                    <span class="material-symbols-outlined">event_available</span>
+                    Reserve a Table
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-logo">
+                <h2>GlobalBites</h2>
+                <p>Experience the world on a plate.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="footer-copy">© 2026 GlobalBites Inc.</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/data.js"></script>
+    <script>
+        // ── Region dropdown ──
+        const regionToggle = document.getElementById('region-toggle');
+        const regionDropdown = document.getElementById('region-dropdown');
+        regionToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.classList.toggle('open');
+            regionDropdown.classList.toggle('open');
+        });
+        document.addEventListener('click', function(e) {
+            if (!regionToggle.contains(e.target)) {
+                regionToggle.classList.remove('open');
+                regionDropdown.classList.remove('open');
+            }
+        });
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                document.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                regionToggle.classList.remove('open');
+                regionDropdown.classList.remove('open');
+            });
+        });
+
+        // ── Load restaurant from URL param ──
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get('id')) || 1;
+        const restaurant = restaurants.find(r => r.id === id) || restaurants[0];
+
+        // ── Update Reserve button with restaurant ID ──
+        document.querySelector('.rd-reserve-btn').href = `/booking-form?id=${id}`;
+
+        // ── Populate page ──
+        document.title = restaurant.name + ' — GlobalBites';
+        document.getElementById('rd-name').textContent = restaurant.name;
+        document.getElementById('rd-rating').textContent = restaurant.rating;
+        document.getElementById('rd-cuisine').textContent = restaurant.cuisine;
+        document.getElementById('rd-price').textContent = restaurant.price;
+        document.getElementById('rd-location').textContent = restaurant.location;
+        document.getElementById('rd-hours').textContent = restaurant.hours;
+        document.getElementById('rd-phone').textContent = restaurant.phone;
+        document.getElementById('rd-about').textContent = restaurant.about;
+        document.getElementById('rd-address').textContent = restaurant.location;
+        document.getElementById('rd-phone-detail').textContent = restaurant.phone;
+        document.getElementById('rd-price-detail').textContent = restaurant.price;
+
+        // ── Gallery ──
+        const mainImg = document.getElementById('rd-main-img');
+        mainImg.src = restaurant.images[0];
+        mainImg.alt = restaurant.name;
+
+        const thumbsContainer = document.getElementById('rd-thumbs');
+        restaurant.images.forEach((src, i) => {
+            const thumb = document.createElement('div');
+            thumb.className = 'rd-thumb' + (i === 0 ? ' active' : '');
+            thumb.innerHTML = `<img src="${src}" alt="${restaurant.name} photo ${i+1}"/>`;
+            thumb.addEventListener('click', () => {
+                mainImg.src = src;
+                document.querySelectorAll('.rd-thumb').forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+            });
+            thumbsContainer.appendChild(thumb);
+        });
+    </script>
+    <script src="/static/js/session.js"></script>
+</body>
+</html>

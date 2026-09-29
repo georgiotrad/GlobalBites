@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Restaurants - GlobalBites</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="/" class="logo" style="text-decoration: none; color: inherit;">
+                    <div class="logo-icon">🍽️</div>
+                    <span>GlobalBites</span>
+                </a>
+                <div class="nav-buttons">
+                    <a href="/" class="btn-text">Home</a>
+                    <a href="/reservations" class="btn-text">My Reservations</a>
+                    <a href="/signup" class="btn-primary" style="text-decoration: none;">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <section class="listing-main">
+        <div class="container">
+            <!-- Header with Search Bar -->
+            <div class="listing-header">
+                <div>
+                    <h1 class="listing-title" id="page-title">All Restaurants</h1>
+                    <p class="listing-subtitle" id="results-subtitle">Discover 11 amazing restaurants in Lebanon</p>
+                </div>
+            </div>
+
+            <!-- Search Bar on Listing Page -->
+            <div style="margin-bottom: 40px;">
+                <div class="search-bar" style="max-width: 600px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 8px; display: flex; align-items: center; gap: 12px;">
+                    <span class="material-symbols-outlined" style="color: var(--text-muted); font-size: 24px; margin-left: 8px;">search</span>
+                    <input type="text" id="search-input" placeholder="Search by restaurant name..." style="flex: 1; background: transparent; border: none; outline: none; color: var(--text-light); font-size: 16px; padding: 8px;"/>
+                    <button class="btn-primary" id="search-btn" style="padding: 10px 20px; font-size: 14px;">Search</button>
+                    <button class="btn-outline" id="clear-btn" style="padding: 10px 16px; font-size: 14px; display: none;">Clear</button>
+                </div>
+            </div>
+
+            <!-- Restaurant Grid -->
+            <div id="restaurants-grid" class="restaurants-grid">
+                <!-- Restaurants will be dynamically loaded here -->
+            </div>
+
+            <!-- No Results Message -->
+            <div id="no-results" style="display: none; text-align: center; padding: 80px 20px;">
+                <div style="width: 80px; height: 80px; background: rgba(139, 69, 19, 0.1); border: 1px solid rgba(139, 69, 19, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <span class="material-symbols-outlined" style="font-size: 40px; color: var(--primary);">search_off</span>
+                </div>
+                <h3 style="font-size: 24px; font-weight: 700; color: var(--text-light); margin-bottom: 8px;">No restaurants found</h3>
+                <p style="font-size: 16px; color: var(--text-muted); margin: 0;" id="no-results-message">Try searching for a different restaurant name</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <h2>🍽️ GlobalBites</h2>
+                    <p>Reserve your table, savor the moment.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Privacy</a>
+                </div>
+                <div class="footer-copy">
+                    © 2026 GlobalBites. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Your actual restaurant data
+        const restaurants = [
+            {
+                id: 1,
+                name: "Swiss Butter",
+                cuisine: "Lebanese",
+                rating: 4.9,
+                price: "$$$",
+                location: "Jal El Dib Main Road, Jal el Dib",
+                images: ["/static/img/restaurants/swiss-butter-1.jpg"]
+            },
+            {
+                id: 2,
+                name: "Al Shams",
+                cuisine: "Lebanese",
+                rating: 4.8,
+                price: "$$",
+                location: "Haouch Moussa, Anjar, Bekaa Valley",
+                images: ["/static/img/restaurants/al-shams-1.jpg"]
+            },
+            {
+                id: 3,
+                name: "Amaleen",
+                cuisine: "Lebanese",
+                rating: 4.7,
+                price: "$$$",
+                location: "Cascada Mall Lakeside, Taanayel",
+                images: ["/static/img/restaurants/amaleen-1.jpg"]
+            },
+            {
+                id: 4,
+                name: "Totori",
+                cuisine: "Chinese",
+                rating: 4.7,
+                price: "$$",
+                location: "513, Mir Omar, Clemenceau, Beirut",
+                images: ["/static/img/restaurants/totori-1.jpg"]
+            },
+            {
+                id: 5,
+                name: "Chop Suey",
+                cuisine: "Chinese",
+                rating: 4.8,
+                price: "$$",
+                location: "Jounieh - Beirut Hwy, Dbayeh",
+                images: ["/static/img/restaurants/chop-suey-1.jpg"]
+            },
+            {
+                id: 6,
+                name: "Alma Beirut",
+                cuisine: "Mexican",
+                rating: 4.6,
+                price: "$$$",
+                location: "Bossa Nova Hotel, Charles Helou, Beirut",
+                images: ["/static/img/restaurants/alma-beirut-1.jpg"]
+            },
+            {
+                id: 7,
+                name: "Papa's Mia Tacos",
+                cuisine: "Mexican",
+                rating: 4.6,
+                price: "$$",
+                location: "Beirut",
+                images: ["/static/img/restaurants/papas-mia-tacos-1.jpg"]
+            },
+            {
+                id: 8,
+                name: "Momaki",
+                cuisine: "Japanese",
+                rating: 4.5,
+                price: "$$",
+                location: "Dbayeh",
+                images: ["/static/img/restaurants/momaki-1.jpg"]
+            },
+            {
+                id: 9,
+                name: "Kami",
+                cuisine: "Japanese",
+                rating: 4.6,
+                price: "$$",
+                location: "Main Road, Byblos",
+                images: ["/static/img/restaurants/kami-1.jpg"]
+            },
+            {
+                id: 10,
+                name: "Appetito Trattoria",
+                cuisine: "Italian",
+                rating: 4.5,
+                price: "$$",
+                location: "Pasteur Street, Beirut",
+                images: ["/static/img/restaurants/appetito-trattoria-1.jpg"]
+            },
+            {
+                id: 11,
+                name: "Pertutti",
+                cuisine: "Italian",
+                rating: 4.6,
+                price: "$$",
+                location: "Martakla, Baabda",
+                images: ["/static/img/restaurants/pertutti-1.jpg"]
+            }
+        ];
+
+        let currentSearch = '';
+
+        // Get search query from URL
+        function getSearchQuery() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('search') || '';
+        }
+
+        // Initialize page with search query
+        function init() {
+            const searchQuery = getSearchQuery();
+            const searchInput = document.getElementById('search-input');
+            const clearBtn = document.getElementById('clear-btn');
+            
+            if (searchQuery) {
+                searchInput.value = searchQuery;
+                currentSearch = searchQuery;
+                clearBtn.style.display = 'inline-block';
+                performSearch(searchQuery);
+            } else {
+                renderRestaurants(restaurants);
+            }
+
+            // Add event listeners
+            document.getElementById('search-btn').addEventListener('click', function() {
+                const query = searchInput.value.trim();
+                currentSearch = query;
+                if (query) {
+                    clearBtn.style.display = 'inline-block';
+                    performSearch(query);
+                    // Update URL without reload
+                    window.history.pushState({}, '', `?search=${encodeURIComponent(query)}`);
+                } else {
+                    clearBtn.style.display = 'none';
+                    renderRestaurants(restaurants);
+                    window.history.pushState({}, '', window.location.pathname);
+                }
+            });
+
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('search-btn').click();
+                }
+            });
+
+            document.getElementById('clear-btn').addEventListener('click', function() {
+                searchInput.value = '';
+                currentSearch = '';
+                clearBtn.style.display = 'none';
+                renderRestaurants(restaurants);
+                window.history.pushState({}, '', window.location.pathname);
+                updateHeader('All Restaurants', restaurants.length);
+            });
+        }
+
+        // Perform search
+        function performSearch(query) {
+            const filtered = restaurants.filter(restaurant => 
+                restaurant.name.toLowerCase().includes(query.toLowerCase())
+            );
+
+            if (filtered.length > 0) {
+                renderRestaurants(filtered);
+                updateHeader(`Search Results for "${query}"`, filtered.length);
+            } else {
+                showNoResults(query);
+            }
+        }
+
+        // Render restaurants
+        function renderRestaurants(restaurantList) {
+            const grid = document.getElementById('restaurants-grid');
+            const noResults = document.getElementById('no-results');
+
+            grid.style.display = 'grid';
+            noResults.style.display = 'none';
+
+            grid.innerHTML = restaurantList.map(restaurant => `
+                <a href="/restaurant-detail?id=${restaurant.id}" class="restaurant-listing-card">
+                    <div class="restaurant-listing-img">
+                        <img src="${restaurant.images[0]}" alt="${restaurant.name}">
+                        <div class="listing-rating-badge">
+                            <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                            ${restaurant.rating}
+                        </div>
+                    </div>
+                    <div class="restaurant-listing-body">
+                        <h3 class="restaurant-listing-name">${restaurant.name}</h3>
+                        <div class="restaurant-listing-meta">
+                            <span class="listing-cuisine">
+                                <span class="material-symbols-outlined">restaurant</span>
+                                ${restaurant.cuisine}
+                            </span>
+                            <span class="listing-separator">•</span>
+                            <span class="listing-price">${restaurant.price}</span>
+                        </div>
+                        <div class="restaurant-listing-tags">
+                            <span class="listing-tag">${restaurant.location.split(',')[0]}</span>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        // Show no results
+        function showNoResults(query) {
+            const grid = document.getElementById('restaurants-grid');
+            const noResults = document.getElementById('no-results');
+            const message = document.getElementById('no-results-message');
+
+            grid.style.display = 'none';
+            noResults.style.display = 'block';
+            message.textContent = `No restaurants found for "${query}". Try a different search term.`;
+
+            updateHeader(`Search Results for "${query}"`, 0);
+        }
+
+        // Update header
+        function updateHeader(title, count) {
+            document.getElementById('page-title').textContent = title;
+            document.getElementById('results-subtitle').textContent = 
+                count === 0 ? 'No results found' : 
+                count === 1 ? '1 restaurant found' : 
+                `${count} restaurants found`;
+        }
+
+        // Initialize on load
+        init();
+    </script>
+    <script src="/static/js/session.js"></script>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>GlobalBites - Premium Dining</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-grid">
+            <div class="logo">
+                <span class="material-symbols-outlined logo-icon">restaurant_menu</span>
+                <h2>GlobalBites</h2>
+            </div>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/reservations">Reservations</a>
+                <a href="#" class="region-nav" id="region-toggle">
+                    Region
+                    <span class="material-symbols-outlined expand-icon">expand_more</span>
+                    <div class="dropdown-menu" id="region-dropdown">
+     <a class="dropdown-item active" href="#">Lebanon</a>
+    <a class="dropdown-item" href="#">United States</a>
+    <a class="dropdown-item" href="#">France</a>
+    <a class="dropdown-item" href="#">United Kingdom</a>
+</div>
+                    </nav>
+            <div class="nav-actions">
+                <a href="/login" class="login-link">Login</a>
+                <a href="/signup" class="btn-primary" style="text-decoration: none; display: inline-flex; align-items: center;">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-carousel">
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="2500">
+
+                <!-- Slides -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/static/img/hero-1.jpg" class="carousel-hero-img" alt="Pizza" loading="eager">
+                        <div class="carousel-overlay"></div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/static/img/hero-2.jpg" class="carousel-hero-img" alt="Pasta" loading="lazy">
+                        <div class="carousel-overlay"></div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/static/img/hero-3.jpg" class="carousel-hero-img" alt="Sushi" loading="lazy">
+                        <div class="carousel-overlay"></div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/static/img/hero-4.jpg" class="carousel-hero-img" alt="Tabouleh" loading="lazy">
+                        <div class="carousel-overlay"></div>
+                    </div>
+                </div>
+
+                <!-- Hero content overlay -->
+                <div class="hero-content-overlay">
+                    <div class="container hero-stack">
+                        <h1>Experience the World<br>on a Plate</h1>
+                        <p>Discover and book the finest global cuisines near you.<br>Authentic flavors, unforgettable atmospheres.</p>
+                        <div class="search-container">
+                            <div class="search-bar">
+                                <span class="material-symbols-outlined search-icon">search</span>
+                                <input type="text" id="search-input" placeholder="Search by restaurant name..."/>
+                                <button class="btn-primary search-btn" id="search-btn">Find Table</button>
+                            </div>
+                        </div>
+                        <div class="filter-pills">
+                            <span class="pill"><span class="material-symbols-outlined">location_on</span> Location</span>
+                            <span class="pill"><span class="material-symbols-outlined">restaurant</span> Cuisine</span>
+                            <span class="pill"><span class="material-symbols-outlined">payments</span> Price</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="reservations" class="section-dark">
+            <div class="container">
+                <div class="section-header flex-between">
+                    <div>
+                        <h2>My Reservations</h2>
+                        <p class="region-subtitle"><span class="material-symbols-outlined">event_note</span> Upcoming dining experiences</p>
+                    </div>
+                    <a href="/restaurant-listing" class="btn-primary" style="text-decoration: none;">+ New Booking</a>
+                </div>
+                <div class="reservation-list" id="homepage-reservations">
+                    <!-- Dynamic reservations will load here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="section-dark">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Explore Cuisines</h2>
+                </div>
+                <div class="cuisine-grid">
+                    <div class="cuisine-card">
+                        <img src="/static/img/Lebanese-Cuisine.jpg" alt="Lebanese" loading="lazy">
+                        <div class="cuisine-overlay">
+                            <div class="cuisine-label">
+                                <img src="https://flagcdn.com/24x18/lb.png" alt="Lebanon flag" class="cuisine-flag">
+                                <span>Lebanese</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cuisine-card">
+                        <img src="/static/img/Chinese-Cuisine.jpg" alt="Chinese" loading="lazy">
+                        <div class="cuisine-overlay">
+                            <div class="cuisine-label">
+                                <img src="https://flagcdn.com/24x18/cn.png" alt="China flag" class="cuisine-flag">
+                                <span>Chinese</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cuisine-card">
+                        <img src="/static/img/Mexican-Cuisine.jpg" alt="Mexican" loading="lazy">
+                        <div class="cuisine-overlay">
+                            <div class="cuisine-label">
+                                <img src="https://flagcdn.com/24x18/mx.png" alt="Mexico flag" class="cuisine-flag">
+                                <span>Mexican</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cuisine-card">
+                        <img src="/static/img/Japanese-Cuisine.jpg" alt="Japanese" loading="lazy">
+                        <div class="cuisine-overlay">
+                            <div class="cuisine-label">
+                                <img src="https://flagcdn.com/24x18/jp.png" alt="Japan flag" class="cuisine-flag">
+                                <span>Japanese</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cuisine-card">
+                        <img src="/static/img/Italian-Cuisine.jpg" alt="Italian" loading="lazy">
+                        <div class="cuisine-overlay">
+                            <div class="cuisine-label">
+                                <img src="https://flagcdn.com/24x18/it.png" alt="Italy flag" class="cuisine-flag">
+                                <span>Italian</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-dark">
+            <div class="container">
+                <div class="flex-header">
+                    <div>
+                        <h2>Trending Restaurants</h2>
+                        <p class="region-subtitle" id="trending-region">
+                            <span class="material-symbols-outlined">location_on</span> Lebanon
+                        </p>
+                    </div>
+                    <a href="/restaurant-listing" class="view-all">View All <span class="material-symbols-outlined">arrow_forward</span></a>
+                </div>
+                <div class="trending-grid">
+                    <a href="/restaurant-detail?id=1" class="trending-card-link">
+                        <div class="trending-card">
+                            <div class="card-img-container"><img src="/static/img/restaurants/swiss-butter-1.jpg" alt="Swiss Butter" class="restaurant-img" loading="lazy"><div class="rating-badge">4.9 ★</div></div>
+                            <div class="card-text"><h3>Swiss Butter</h3><p>Signature Steak & Special Sauce</p></div>
+                        </div>
+                    </a>
+                    <a href="/restaurant-detail?id=2" class="trending-card-link">
+                        <div class="trending-card">
+                            <div class="card-img-container"><img src="/static/img/restaurants/al-shams-1.jpg" alt="Al Shams" class="restaurant-img" loading="lazy"><div class="rating-badge">4.8 ★</div></div>
+                            <div class="card-text"><h3>Al Shams</h3><p>Authentic Traditional Lebanese</p></div>
+                        </div>
+                    </a>
+                    <a href="/restaurant-detail?id=3" class="trending-card-link">
+                        <div class="trending-card">
+                            <div class="card-img-container"><img src="/static/img/restaurants/amaleen-1.jpg" alt="Amaleen" class="restaurant-img" loading="lazy"><div class="rating-badge">4.7 ★</div></div>
+                            <div class="card-text"><h3>Amaleen</h3><p>Modern Fusion & Atmosphere</p></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-dark">
+            <div class="container">
+                <h2>Outdoor Prediction</h2>
+                <div class="ml-prediction-card">
+                    <div class="ml-left">
+                        <h3>Weather</h3>
+                        <div class="weather-info">
+                            <div><span>🌡️</span><span id="ml-temp">25°C</span></div>
+                            <div><span>💧</span><span id="ml-rain">Clear</span></div>
+                            <div><span>💨</span><span id="ml-wind">10 km/h</span></div>
+                        </div>
+                    </div>
+                    <div class="ml-center">
+                        <div class="prediction-number" id="ml-bookings">--</div>
+                        <div>Predicted Bookings</div>
+                    </div>
+                    <div class="ml-right">
+                        <div class="recommendation-box" id="ml-recommendation">
+                            <h4>Loading...</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="ml-demo-controls">
+                    <h4>Test It:</h4>
+                    <label>Temp: <input type="range" id="temp-slider" min="10" max="40" value="25"><span id="temp-display">25°C</span></label>
+                    <label>Rain: <select id="rain-select"><option value="false">No</option><option value="true">Yes</option></select></label>
+                    <label>Wind: <input type="range" id="wind-slider" min="0" max="40" value="10"><span id="wind-display">10</span></label>
+                    <button class="btn-primary" id="update-btn">Update</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-logo">
+                <h2>GlobalBites</h2>
+                <p>Experience the world on a plate.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="footer-copy">© 2026 GlobalBites Inc.</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const regionToggle = document.getElementById('region-toggle');
+        const regionDropdown = document.getElementById('region-dropdown');
+        const trendingRegion = document.getElementById('trending-region');
+
+        // Toggle dropdown on click
+        regionToggle.addEventListener('click', function (e) {
+            e.preventDefault();
+            this.classList.toggle('open');
+            regionDropdown.classList.toggle('open');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!regionToggle.contains(e.target)) {
+                regionToggle.classList.remove('open');
+                regionDropdown.classList.remove('open');
+            }
+        });
+
+        // Set active country on click and update trending region label
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                document.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                const selectedRegion = this.textContent.trim();
+                trendingRegion.innerHTML = `<span class="material-symbols-outlined">location_on</span> ${selectedRegion}`;
+                regionToggle.classList.remove('open');
+                regionDropdown.classList.remove('open');
+            });
+        });
+
+        // ============================================
+        // SEARCH FUNCTIONALITY
+        // ============================================
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = `/restaurant-listing?search=${encodeURIComponent(query)}`;
+            } else {
+                window.location.href = '/restaurant-listing';
+            }
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // ============================================
+        // PERSISTED HOMEPAGE RESERVATIONS
+        // ============================================
+        async function loadHomepageReservations() {
+            const container = document.getElementById('homepage-reservations');
+            try {
+                const auth = await fetch('/api/check-auth', { credentials: 'same-origin' });
+                const authData = await auth.json();
+                if (!authData.authenticated || authData.user?.role !== 'DINER') {
+                    container.innerHTML = `
+                        <div style="text-align:center; padding:60px 20px; color:var(--text-muted);">
+                            <span class="material-symbols-outlined" style="font-size:48px; opacity:.5;">login</span>
+                            <p style="margin-top:16px; font-size:18px;">Sign in as a diner to see your reservations</p>
+                            <a href="/login" class="btn-primary" style="display:inline-flex; margin-top:16px; text-decoration:none;">Demo Access / Login</a>
+                        </div>`;
+                    return;
+                }
+
+                const response = await fetch('/api/reservations', { credentials: 'same-origin' });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Reservations could not be loaded.');
+                const bookings = (data.reservations || [])
+                    .filter(b => ['PENDING', 'CONFIRMED'].includes(b.status))
+                    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
+                    .slice(0, 2);
+
+                if (!bookings.length) {
+                    container.innerHTML = `<div style="text-align:center; padding:60px 20px; color:var(--text-muted);"><span class="material-symbols-outlined" style="font-size:48px; opacity:.5;">event_busy</span><p style="margin-top:16px; font-size:18px;">No active reservations yet</p><p style="margin-top:8px;">Browse restaurants and submit your first booking.</p></div>`;
+                    return;
+                }
+
+                container.innerHTML = bookings.map(booking => {
+                    const date = new Date(`${booking.date}T00:00:00`);
+                    const formattedDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    return `<div class="res-card"><div class="res-body"><h3>${booking.restaurantName}</h3><p class="res-meta"><span class="material-symbols-outlined">calendar_month</span> ${formattedDate} • ${booking.time}</p><p class="res-meta"><span class="material-symbols-outlined">groups</span> ${booking.guests} ${booking.guests === 1 ? 'Person' : 'People'} • Table ${booking.table}</p></div><div class="res-status confirmed">${booking.status}</div><a href="/reservations" class="btn-outline" style="text-decoration:none;">View All</a></div>`;
+                }).join('');
+            } catch (error) {
+                container.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-muted);">Reservations are temporarily unavailable.</div>`;
+            }
+        }
+
+        loadHomepageReservations();
+    </script>
+    <script>
+        async function updatePrediction() {
+            const temp = document.getElementById('temp-slider').value;
+            const rain = document.getElementById('rain-select').value;
+            const wind = document.getElementById('wind-slider').value;
+            const box = document.getElementById('ml-recommendation');
+            try {
+                const response = await fetch(`/api/ml/predict?temp=${encodeURIComponent(temp)}&rain=${encodeURIComponent(rain)}&wind=${encodeURIComponent(wind)}`);
+                const data = await response.json();
+                if (!response.ok || !data.success) throw new Error(data.message || 'Prediction unavailable.');
+                document.getElementById('ml-temp').textContent = data.weather.temp + '°C';
+                document.getElementById('ml-rain').textContent = data.weather.rain ? 'Rainy' : 'Clear';
+                document.getElementById('ml-wind').textContent = data.weather.wind + ' km/h';
+                document.getElementById('ml-bookings').textContent = data.bookings;
+                box.innerHTML = `<h4>${data.recommendation}</h4><p style="margin-top:8px; font-size:13px;">Advisory only — the model never controls table availability or reservation status.</p>`;
+                box.style.background = data.status === 'low' ? 'rgba(59,130,246,0.2)' : data.status === 'medium' ? 'rgba(234,179,8,0.2)' : 'rgba(239,68,68,0.2)';
+            } catch (error) {
+                document.getElementById('ml-bookings').textContent = '--';
+                box.innerHTML = `<h4>Prediction temporarily unavailable</h4><p style="margin-top:8px; font-size:13px;">Reservations continue to use deterministic availability rules.</p>`;
+            }
+        }
+        document.getElementById('update-btn').addEventListener('click', updatePrediction);
+        document.getElementById('temp-slider').addEventListener('input', function() { document.getElementById('temp-display').textContent = this.value + '°C'; });
+        document.getElementById('wind-slider').addEventListener('input', function() { document.getElementById('wind-display').textContent = this.value; });
+        updatePrediction();
+    </script>
+    <script src="/static/js/session.js"></script>
+</body>
+</html>

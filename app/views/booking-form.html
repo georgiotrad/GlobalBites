@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Table - GlobalBites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container navbar-content">
+            <div class="logo">GlobalBites</div>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/reservations">My Reservations</a>
+            </nav>
+            <div class="nav-buttons">
+    <a href="/login" class="btn-text">Login</a>
+    <a href="/signup" class="btn-primary" style="text-decoration: none;">Sign Up</a>
+</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="booking-page">
+        <div class="container">
+            <!-- Restaurant Info Header -->
+            <section class="restaurant-header">
+                <h1 id="restaurant-name">Loading...</h1>
+                <div class="restaurant-tags">
+                    <span class="tag" id="location-tag">
+                        <span class="material-symbols-outlined">location_on</span>
+                        <span id="restaurant-location">...</span>
+                    </span>
+                    <span class="tag" id="cuisine-tag">
+                        <span class="material-symbols-outlined">restaurant</span>
+                        <span id="restaurant-cuisine">...</span>
+                    </span>
+                    <span class="tag rating-tag" id="rating-tag">
+                        <span class="material-symbols-outlined">star</span>
+                        <span id="restaurant-rating">...</span>
+                    </span>
+                    <span class="tag" id="hours-tag">
+                        <span class="material-symbols-outlined">schedule</span>
+                        <span id="restaurant-hours">...</span>
+                    </span>
+                </div>
+            </section>
+
+            <!-- Two Column Layout -->
+            <div class="booking-grid">
+                <!-- Left: Booking Form -->
+                <div class="booking-form-card">
+                    <div class="card-header">
+                        <h2>Reservation Details</h2>
+                        <p>Fill in your details to secure your table.</p>
+                    </div>
+
+                    <form id="booking-form">
+                        <!-- Date & Time Row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <div class="input-with-icon">
+                                    <span class="material-symbols-outlined">calendar_today</span>
+                                    <input type="date" id="date" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Time</label>
+                                <div class="input-with-icon">
+                                    <span class="material-symbols-outlined">schedule</span>
+                                    <select id="time" required>
+                                        <option value="">Select time</option>
+                                        <option value="12:00">12:00 PM</option>
+                                        <option value="12:30">12:30 PM</option>
+                                        <option value="13:00">1:00 PM</option>
+                                        <option value="13:30">1:30 PM</option>
+                                        <option value="14:00">2:00 PM</option>
+                                        <option value="18:00">6:00 PM</option>
+                                        <option value="18:30">6:30 PM</option>
+                                        <option value="19:00">7:00 PM</option>
+                                        <option value="19:30">7:30 PM</option>
+                                        <option value="20:00">8:00 PM</option>
+                                        <option value="20:30">8:30 PM</option>
+                                        <option value="21:00">9:00 PM</option>
+                                        <option value="21:30">9:30 PM</option>
+                                        <option value="22:00">10:00 PM</option>
+                                    </select>
+                                    <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Guests -->
+                        <div class="form-group">
+                            <label for="guests">Number of Guests</label>
+                            <div class="input-with-icon">
+                                <span class="material-symbols-outlined">group</span>
+                                <select id="guests" required>
+                                    <option value="">Select guests</option>
+                                    <option value="1">1 Guest</option>
+                                    <option value="2">2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                </select>
+                                <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+                            </div>
+                        </div>
+
+                        <div class="form-divider"></div>
+
+                        <!-- Personal Info -->
+                        <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <input type="text" id="fullname" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <div class="phone-input">
+                                <select id="country-code" class="country-code">
+                                    <option value="+961">🇱🇧 +961</option>
+                                    <option value="+1">🇺🇸 +1</option>
+                                    <option value="+44">🇬🇧 +44</option>
+                                    <option value="+33">🇫🇷 +33</option>
+                                    <option value="+49">🇩🇪 +49</option>
+                                    <option value="+966">🇸🇦 +966</option>
+                                    <option value="+971">🇦🇪 +971</option>
+                                </select>
+                                <input type="tel" id="phone" placeholder="70 123 456" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            Confirm Reservation
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right: Table Selection -->
+                <div class="table-selection-card">
+                    <div class="card-header">
+                        <h2>Choose Your Seating</h2>
+                        <p>Select an available table from the options below.</p>
+                    </div>
+
+                    <!-- Availability Status Panel -->
+                    <div class="availability-status" id="availability-status" style="display: none;">
+                        <div class="status-header">
+                            <span class="material-symbols-outlined">info</span>
+                            <h4>Availability Status</h4>
+                        </div>
+                        <div class="status-content">
+                            <div class="status-summary" id="status-summary"></div>
+                            <div class="status-lists">
+                                <div class="available-list" id="available-list">
+                                    <h5><span class="material-symbols-outlined">check_circle</span> Available</h5>
+                                    <div class="table-chips" id="available-chips"></div>
+                                </div>
+                                <div class="booked-list" id="booked-list">
+                                    <h5><span class="material-symbols-outlined">block</span> Booked</h5>
+                                    <div class="table-chips" id="booked-chips"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-sections">
+                        <!-- Indoor Tables -->
+                        <div class="table-section">
+                            <h3>
+                                <span class="material-symbols-outlined">restaurant</span>
+                                Indoor Dining
+                            </h3>
+                            <div class="table-grid">
+                                <button type="button" class="table-card" data-table="T1" data-type="indoor" data-seats="2">
+                                    <div class="table-icon">
+                                        <div class="table-2">
+                                            <div class="chair top"></div>
+                                            <div class="chair bottom"></div>
+                                        </div>
+                                    </div>
+                                    <span class="table-label">T1</span>
+                                </button>
+
+                                <button type="button" class="table-card" data-table="T2" data-type="indoor" data-seats="4">
+                                    <div class="table-icon">
+                                        <div class="table-4">
+                                            <div class="chair top"></div>
+                                            <div class="chair bottom"></div>
+                                            <div class="chair left"></div>
+                                            <div class="chair right"></div>
+                                        </div>
+                                    </div>
+                                    <span class="table-label">T2</span>
+                                </button>
+
+                                <button type="button" class="table-card" data-table="T3" data-type="indoor" data-seats="4">
+                                    <div class="table-icon">
+                                        <div class="table-4-rect">
+                                            <div class="chair top-left"></div>
+                                            <div class="chair top-right"></div>
+                                            <div class="chair bottom-left"></div>
+                                            <div class="chair bottom-right"></div>
+                                        </div>
+                                    </div>
+                                    <span class="table-label">T3</span>
+                                </button>
+
+                                <button type="button" class="table-card" data-table="T4" data-type="indoor" data-seats="2">
+                                    <div class="table-icon">
+                                        <div class="table-2">
+                                            <div class="chair top"></div>
+                                            <div class="chair bottom"></div>
+                                        </div>
+                                    </div>
+                                    <span class="table-label">T4</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Outdoor Tables -->
+                        <div class="table-section">
+                            <h3>
+                                <span class="material-symbols-outlined">deck</span>
+                                Terrace / Outdoor
+                            </h3>
+                            <div class="table-grid">
+                                <button type="button" class="table-card" data-table="O1" data-type="outdoor" data-seats="2">
+                                    <div class="table-icon">
+                                        <div class="table-2">
+                                            <div class="chair top"></div>
+                                            <div class="chair bottom"></div>
+                                        </div>
+                                    </div>
+                                    <span class="table-label">O1</span>
+                                </button>
+
+                                <button type="button" class="table-card" data-table="O2" data-type="outdoor" data-seats="4">
+                                    <div class="table-icon">
+                                        <div class="table-4">
+                                            <div class="chair top"></div>
+                                            <div class="chair bottom"></div>
+                                            <div class="chair left"></div>
+                                            <div class="chair right"></div>
+                                        </div>
+                                    </div>
+                                    <span class="table-label">O2</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-logo">GlobalBites</div>
+            <div class="footer-copyright">© 2024 GlobalBites. All rights reserved. Crafted for the global palate.</div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Settings</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/data.js"></script>
+    <script src="/static/js/session.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const restaurantId = Number(urlParams.get('id'));
+        let selectedTable = null;
+        let selectedType = null;
+        let currentUser = null;
+
+        function showError(message) {
+            alert(message);
+        }
+
+        function loadRestaurantData() {
+            const restaurant = restaurants.find(r => r.id === restaurantId);
+            if (!restaurant) {
+                showError('Restaurant not found.');
+                window.location.href = '/restaurant-listing';
+                return;
+            }
+            window.currentRestaurant = restaurant;
+            document.getElementById('restaurant-name').textContent = restaurant.name;
+            document.getElementById('restaurant-location').textContent = restaurant.location;
+            document.getElementById('restaurant-cuisine').textContent = restaurant.cuisine;
+            document.getElementById('restaurant-rating').textContent = restaurant.rating + ' ★';
+            document.getElementById('restaurant-hours').textContent = restaurant.hours;
+        }
+
+        async function loadIdentity() {
+            const state = await GlobalBitesSession.getSession();
+            if (!state.authenticated || !state.user) {
+                const next = encodeURIComponent(window.location.pathname + window.location.search);
+                window.location.href = `/login?next=${next}`;
+                return false;
+            }
+            if (state.user.role !== 'DINER') {
+                showError('Restaurant staff accounts cannot create diner reservations. Switch to the demo diner account.');
+                window.location.href = '/reservations';
+                return false;
+            }
+            currentUser = state.user;
+            document.getElementById('fullname').value = currentUser.full_name;
+            document.getElementById('email').value = currentUser.email;
+            document.getElementById('phone').value = currentUser.phone;
+            document.getElementById('country-code').value = currentUser.country_code || '+961';
+            document.getElementById('fullname').readOnly = true;
+            document.getElementById('email').readOnly = true;
+            return true;
+        }
+
+        async function updateTableAvailability() {
+            const selectedDate = document.getElementById('date').value;
+            const selectedTime = document.getElementById('time').value;
+            const panel = document.getElementById('availability-status');
+            if (!selectedDate || !selectedTime) {
+                panel.style.display = 'none';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/reservations/availability?restaurant_id=${restaurantId}&date=${encodeURIComponent(selectedDate)}&time=${encodeURIComponent(selectedTime)}`);
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Availability could not be loaded.');
+
+                const bookedTables = data.booked || [];
+                const availableTables = data.available || [];
+                panel.style.display = 'block';
+                document.getElementById('status-summary').innerHTML = `
+                    <div class="status-stat"><span class="stat-number available-color">${availableTables.length}</span><span class="stat-label">Available</span></div>
+                    <div class="status-divider"></div>
+                    <div class="status-stat"><span class="stat-number booked-color">${bookedTables.length}</span><span class="stat-label">Reserved</span></div>`;
+                document.getElementById('available-chips').innerHTML = availableTables.length
+                    ? availableTables.map(t => `<span class="table-chip available">${t}</span>`).join('')
+                    : '<span class="empty-message">No tables available</span>';
+                document.getElementById('booked-chips').innerHTML = bookedTables.length
+                    ? bookedTables.map(t => `<span class="table-chip booked-chip">${t}</span>`).join('')
+                    : '<span class="empty-message">No reserved tables</span>';
+
+                document.querySelectorAll('.table-card').forEach(card => {
+                    const code = card.dataset.table;
+                    const isBooked = bookedTables.includes(code);
+                    card.classList.toggle('booked', isBooked);
+                    card.style.pointerEvents = isBooked ? 'none' : 'auto';
+                    card.style.opacity = isBooked ? '0.5' : '1';
+                });
+                if (bookedTables.includes(selectedTable)) {
+                    selectedTable = null;
+                    selectedType = null;
+                    document.querySelectorAll('.table-card').forEach(c => c.classList.remove('selected'));
+                }
+            } catch (error) {
+                panel.style.display = 'block';
+                document.getElementById('status-summary').textContent = error.message;
+            }
+        }
+
+        document.querySelectorAll('.table-card').forEach(card => {
+            card.addEventListener('click', function() {
+                if (this.classList.contains('booked')) return;
+                document.querySelectorAll('.table-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedTable = this.dataset.table;
+                selectedType = this.dataset.type;
+            });
+        });
+
+        document.getElementById('booking-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            if (!selectedTable) {
+                showError('Please select an available table.');
+                return;
+            }
+            const payload = {
+                restaurant_id: restaurantId,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                guests: Number(document.getElementById('guests').value),
+                table: selectedTable,
+                seating_type: selectedType,
+            };
+            try {
+                const response = await fetch('/api/reservations', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Reservation could not be created.');
+                alert(`Reservation #${data.reservation.id} submitted. Status: ${data.reservation.status}.`);
+                window.location.href = '/reservations';
+            } catch (error) {
+                showError(error.message);
+                await updateTableAvailability();
+            }
+        });
+
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+        document.getElementById('date').addEventListener('change', updateTableAvailability);
+        document.getElementById('time').addEventListener('change', updateTableAvailability);
+
+        loadRestaurantData();
+        loadIdentity().then(ok => { if (ok) updateTableAvailability(); });
+    </script>
+</body>
+</html>

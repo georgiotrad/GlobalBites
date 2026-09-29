@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reservations - GlobalBites</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container nav-grid">
+            <div class="logo">
+                <span class="material-symbols-outlined logo-icon">restaurant_menu</span>
+                <h2>GlobalBites</h2>
+            </div>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/reservations">My Reservations</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="/login" class="login-link">Login</a>
+                <a href="/signup" class="btn-primary" style="text-decoration: none;">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="reservations-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>My Reservations</h1>
+                <p class="page-subtitle">View and manage your dining reservations</p>
+            </div>
+
+            <!-- Reservations List -->
+            <div id="reservations-container" class="reservations-container">
+                <!-- Reservations will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-logo">
+                <h2>GlobalBites</h2>
+                <p>Experience the world on a plate.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="footer-copy">© 2026 GlobalBites Inc.</div>
+        </div>
+    </footer>
+
+    <script src="/static/js/session.js"></script>
+    <script>
+        let currentUser = null;
+
+        function esc(value) {
+            return GlobalBitesSession.escapeHtml(value);
+        }
+
+        function statusClass(status) {
+            if (status === 'COMPLETED') return 'completed';
+            if (status === 'CANCELLED') return 'completed';
+            return 'confirmed';
+        }
+
+        function formatDate(value) {
+            const [year, month, day] = value.split('-').map(Number);
+            return new Date(year, month - 1, day).toLocaleDateString('en-US', {
+                weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            });
+        }
+
+        function actionButtons(booking) {
+            if (!currentUser) return '';
+            if (currentUser.role === 'STAFF') {
+                const buttons = [];
+                if (booking.status === 'PENDING') {
+                    buttons.push(`<button onclick="changeStatus(${booking.id}, 'CONFIRMED')" class="btn-primary">Confirm</button>`);
+                }
+                if (booking.status === 'CONFIRMED') {
+                    buttons.push(`<button onclick="changeStatus(${booking.id}, 'COMPLETED')" class="btn-primary">Complete</button>`);
+                }
+                if (['PENDING', 'CONFIRMED'].includes(booking.status)) {
+                    buttons.push(`<button onclick="changeStatus(${booking.id}, 'CANCELLED')" class="btn-cancel">Cancel</button>`);
+                }
+                return buttons.join(' ');
+            }
+            if (['PENDING', 'CONFIRMED'].includes(booking.status)) {
+                return `<button onclick="changeStatus(${booking.id}, 'CANCELLED')" class="btn-cancel"><span class="material-symbols-outlined">cancel</span>Cancel Reservation</button>`;
+            }
+            return '';
+        }
+
+        function createReservationCard(booking) {
+            return `
+                <div class="reservation-card">
+                    <div class="reservation-header">
+                        <div>
+                            <h3 class="restaurant-name">${esc(booking.restaurantName)}</h3>
+                            <p class="restaurant-cuisine">${esc(booking.restaurantCuisine)} • ${esc(booking.restaurantLocation)}</p>
+                        </div>
+                        <div class="reservation-status ${statusClass(booking.status)}">${esc(booking.status)}</div>
+                    </div>
+                    <div class="reservation-details">
+                        <div class="detail-item"><span class="material-symbols-outlined">calendar_month</span><div><span class="detail-label">Date</span><span class="detail-value">${formatDate(booking.date)}</span></div></div>
+                        <div class="detail-item"><span class="material-symbols-outlined">schedule</span><div><span class="detail-label">Time</span><span class="detail-value">${esc(booking.time)}</span></div></div>
+                        <div class="detail-item"><span class="material-symbols-outlined">group</span><div><span class="detail-label">Guests</span><span class="detail-value">${booking.guests}</span></div></div>
+                        <div class="detail-item"><span class="material-symbols-outlined">chair</span><div><span class="detail-label">Table</span><span class="detail-value">${esc(booking.table)} (${esc(booking.seatingType)})</span></div></div>
+                    </div>
+                    <div class="reservation-footer">
+                        <div class="reservation-info"><span class="material-symbols-outlined">person</span>${esc(booking.fullName)} · #${booking.id}</div>
+                        <div>${actionButtons(booking)}</div>
+                    </div>
+                </div>`;
+        }
+
+        async function loadReservations() {
+            const container = document.getElementById('reservations-container');
+            const state = await GlobalBitesSession.getSession();
+            if (!state.authenticated || !state.user) {
+                window.location.href = '/login?next=/reservations';
+                return;
+            }
+            currentUser = state.user;
+            document.querySelector('.page-header h1').textContent = currentUser.role === 'STAFF' ? 'Restaurant Staff Dashboard' : 'My Reservations';
+            document.querySelector('.page-subtitle').textContent = currentUser.role === 'STAFF'
+                ? 'Confirm, complete, or cancel reservations using deterministic lifecycle rules.'
+                : 'View and manage your persisted dining reservations.';
+
+            try {
+                const response = await fetch('/api/reservations', { credentials: 'same-origin' });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Reservations could not be loaded.');
+                const bookings = data.reservations || [];
+                if (!bookings.length) {
+                    container.innerHTML = `<div class="empty-state"><div class="empty-icon"><span class="material-symbols-outlined">event_busy</span></div><h2>No Reservations Yet</h2><p>${currentUser.role === 'STAFF' ? 'No diner reservations have been submitted.' : 'Browse restaurants and submit your first reservation.'}</p><a href="/restaurant-listing" class="btn-primary" style="text-decoration:none; display:inline-flex; margin-top:20px;">Browse Restaurants</a></div>`;
+                    return;
+                }
+                container.innerHTML = `<div class="reservations-section"><h2 class="section-title"><span class="material-symbols-outlined">database</span>${currentUser.role === 'STAFF' ? 'All Persisted Reservations' : 'Your Persisted Reservations'}</h2><div class="reservations-grid">${bookings.map(createReservationCard).join('')}</div></div>`;
+            } catch (error) {
+                container.innerHTML = `<div class="empty-state"><h2>Unable to load reservations</h2><p>${esc(error.message)}</p></div>`;
+            }
+        }
+
+        async function changeStatus(id, status) {
+            if (!confirm(`Change reservation #${id} to ${status}?`)) return;
+            try {
+                const response = await fetch(`/api/reservations/${id}/status`, {
+                    method: 'PATCH',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status }),
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Status change failed.');
+                await loadReservations();
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadReservations);
+    </script>
+</body>
+</html>
